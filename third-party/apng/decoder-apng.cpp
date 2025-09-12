@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "duilib/third_party/zlib/zlib.h"
-#include "duilib/third_party/libpng/png.h"
-#include "duilib/third_party/libpng/pngpriv.h"
-#include "duilib/third_party/libpng/pngstruct.h"
-#include "duilib/third_party/libpng/pnginfo.h"
+#include "third-party/zlib/zlib.h"
+#include "third-party/libpng/png.h"
+#include "third-party/libpng/pngpriv.h"
+#include "third-party/libpng/pngstruct.h"
+#include "third-party/libpng/pnginfo.h"
 
 #include "decoder-apng.h"
 #include <assert.h>

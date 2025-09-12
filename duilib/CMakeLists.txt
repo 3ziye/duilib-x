@@ -4,6 +4,8 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
   message(FATAL_ERROR "Prevented in-tree build. Please create a build directory outside of the source code and run \"cmake -S ${CMAKE_SOURCE_DIR} -B .\" from there")
 endif()
 
+message(STATUS "current platform: ${CMAKE_SYSTEM_NAME}")
+
 # duilib
 # MSVC runtime library flags are selected by an abstraction.
 set(CMAKE_POLICY_DEFAULT_CMP0091 NEW)
@@ -47,6 +49,16 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")  # Linux
     set(CEF_LIB_DIR "libcef_linux")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")  # Windows
     set(CEF_LIB_DIR "libcef_win")
+
+    #使用CEF最新版本
+    set(DUILIB_CEF_SRC_ROOT_DIR "${DUILIB_ROOT}/third-party/libcef_win")
+    if(DUILIB_BITS_64)
+        set(DUILIB_CEF_LIB_PATH "${DUILIB_ROOT}/third-party/libcef_win/lib/x64")
+    else()
+        set(DUILIB_CEF_LIB_PATH "${DUILIB_ROOT}/third-party/libcef_win/lib/Win32")
+    endif()
+    set(DUILIB_CEF_WRAPPER_LIB_NAME libcef_dll_wrapper)
+
 elseif(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")  # FreeBSD
     message(WARNING "CEF is not supported on FreeBSD - building without CEF support")
     set(CEF_LIB_DIR "")  # Empty or set to a dummy value
@@ -56,8 +68,8 @@ endif()
 
 # Set include directories
 get_filename_component(DUILIB_SRC_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}/../" ABSOLUTE)
-get_filename_component(SKIA_SRC_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}/../../skia/" ABSOLUTE)
-get_filename_component(SDL_SRC_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}/../../SDL3/" ABSOLUTE)
+get_filename_component(SKIA_SRC_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}/../third-party/skia/" ABSOLUTE)
+get_filename_component(SDL_SRC_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}/../third-party/SDL/" ABSOLUTE)
 
 # Always include these directories
 include_directories(${DUILIB_SRC_ROOT_DIR})
@@ -110,20 +122,21 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")  # Windows
     aux_source_directory(${CMAKE_CURRENT_LIST_DIR}/CEFControl/internal/Windows CEF_CONTROL_INTERNAL_WINDOWS_SRC)
 endif()
 
-aux_source_directory(${DUILIB_SRC_ROOT_DIR}/duilib/third_party/apng APNG_SRC)
-aux_source_directory(${DUILIB_SRC_ROOT_DIR}/duilib/third_party/stb_image STB_SRC)
-aux_source_directory(${DUILIB_SRC_ROOT_DIR}/duilib/third_party/svg SVG_SRC)
-aux_source_directory(${DUILIB_SRC_ROOT_DIR}/duilib/third_party/convert_utf UTF_SRC)
-aux_source_directory(${DUILIB_SRC_ROOT_DIR}/duilib/third_party/xml XML_SRC)
+aux_source_directory(${DUILIB_SRC_ROOT_DIR}/third-party/apng APNG_SRC)
+aux_source_directory(${DUILIB_SRC_ROOT_DIR}/third-party/stb_image STB_SRC)
+aux_source_directory(${DUILIB_SRC_ROOT_DIR}/third-party/svg SVG_SRC)
+aux_source_directory(${DUILIB_SRC_ROOT_DIR}/third-party/convert_utf UTF_SRC)
+aux_source_directory(${DUILIB_SRC_ROOT_DIR}/third-party/xml XML_SRC)
+
 
 set(UNZIP_HDRS
-    ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/zlib/contrib/minizip/ioapi.h
-    ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/zlib/contrib/minizip/unzip.h
+    ${DUILIB_SRC_ROOT_DIR}/third-party/zlib/contrib/minizip/ioapi.h
+    ${DUILIB_SRC_ROOT_DIR}/third-party/zlib/contrib/minizip/unzip.h
 )
 
 set(UNZIP_SRCS
-    ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/zlib/contrib/minizip/ioapi.c
-    ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/zlib/contrib/minizip/unzip.c
+    ${DUILIB_SRC_ROOT_DIR}/third-party/zlib/contrib/minizip/ioapi.c
+    ${DUILIB_SRC_ROOT_DIR}/third-party/zlib/contrib/minizip/unzip.c
 )
 
 set(SKIA_HDRS
@@ -141,29 +154,29 @@ set(SKIA_SRCS
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     # Windows平台，单独依赖的几个Skia源码文件
     set(SKIA_WGL_SRCS
-        ${SKIA_SRC_ROOT_DIR}/tools/gpu/gl/win/SkWGL.h
-        ${SKIA_SRC_ROOT_DIR}/tools/gpu/gl/win/SkWGL_win.cpp
+        # ${SKIA_SRC_ROOT_DIR}/tools/gpu/gl/win/SkWGL.h
+        # ${SKIA_SRC_ROOT_DIR}/tools/gpu/gl/win/SkWGL_win.cpp
     )
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     # Windows平台，单独依赖的源码文件
     set(UDIS_HDRS 
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/decode.h
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/extern.h
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/itab.h
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/syn.h
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/types.h
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/udint.h
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/udis86.h
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/decode.h
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/extern.h
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/itab.h
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/syn.h
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/types.h
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/udint.h
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/udis86.h
     )
     set(UDIS_SRCS 
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/udis86.c
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/syn-att.c
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/syn-intel.c
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/syn.c
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/itab.c
-        ${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/decode.c
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/udis86.c
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/syn-att.c
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/syn-intel.c
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/syn.c
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/itab.c
+        ${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/decode.c
     )
 endif()
 
@@ -264,7 +277,7 @@ if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
             -Wno-reorder
             -Wno-cast-function-type
           )
-          set_source_files_properties("${DUILIB_SRC_ROOT_DIR}/duilib/third_party/libudis86/decode.c" PROPERTIES COMPILE_OPTIONS "-Wno-implicit-fallthrough")
+          set_source_files_properties("${DUILIB_SRC_ROOT_DIR}/third-party/libudis86/decode.c" PROPERTIES COMPILE_OPTIONS "-Wno-implicit-fallthrough")
           if(DUILIB_HAVE_AVX2)
             set_source_files_properties("${SKIA_SRC_ROOT_DIR}/tools/window/GLWindowContext.cpp" PROPERTIES COMPILE_OPTIONS "-mavx2")
           elseif(DUILIB_HAVE_AVX)

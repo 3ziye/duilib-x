@@ -3,7 +3,7 @@
 #ifdef DUILIB_BUILD_FOR_WIN
 
 #ifdef DUILIB_ENABLE_INLINE_HOOK
-    #include "duilib/third_party/libudis86/udis86.h"
+    #include "third-party/libudis86/udis86.h"
 #endif
 
 namespace ui 

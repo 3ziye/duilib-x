@@ -50,7 +50,7 @@
 #include "duilib/Utils/AttributeUtil.h"
 #include "duilib/Utils/FilePathUtil.h"
 
-#include "duilib/third_party/xml/pugixml.hpp"
+#include "third-party/xml/pugixml.hpp"
 #include <set>
 
 namespace ui 

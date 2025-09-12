@@ -1,5 +1,5 @@
 #include "StringConvert.h"
-#include "duilib/third_party/convert_utf/ConvertUTF.h"
+#include "third-party/convert_utf/ConvertUTF.h"
 #include <vector>
 
 using namespace llvm; //for ConvertUTF.h

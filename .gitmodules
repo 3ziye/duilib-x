@@ -1,0 +1,6 @@
+[submodule "third-party/SDL"]
+	path = third-party/SDL
+	url = https://github.com/libsdl-org/SDL.git
+[submodule "third-party/skia"]
+	path = third-party/skia
+	url = https://github.com/google/skia.git

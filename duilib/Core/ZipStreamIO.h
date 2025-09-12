@@ -2,7 +2,7 @@
 #define UI_CORE_ZIP_STREAM_IO_H_
 
 #include "duilib/duilib_defs.h"
-#include "duilib/third_party/zlib/contrib/minizip/ioapi.h"
+#include "third-party/zlib/contrib/minizip/ioapi.h"
 
 namespace ui 
 {

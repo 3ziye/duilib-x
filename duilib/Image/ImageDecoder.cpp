@@ -4,7 +4,7 @@
 #include "duilib/Utils/StringUtil.h"
 #include "duilib/Utils/PerformanceUtil.h"
 
-#include "duilib/third_party/apng/decoder-apng.h"
+#include "third-party/apng/decoder-apng.h"
 
 #pragma warning (push)
 #pragma warning (disable: 4244)
@@ -16,12 +16,12 @@
 #define STBI_NO_PNM
 #define STBI_NO_GIF
 #define STBI_NO_PNG
-#include "duilib/third_party/stb_image/stb_image.h"
+#include "third-party/stb_image/stb_image.h"
 
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
 #define STBIR_DEFAULT_FILTER_UPSAMPLE STBIR_FILTER_TRIANGLE
 #pragma warning (disable: 4505)
-    #include "duilib/third_party/stb_image/stb_image_resize2.h"
+    #include "third-party/stb_image/stb_image_resize2.h"
 #pragma warning (pop)
 
 #if defined(__GNUC__) && !defined(__clang__)
@@ -33,9 +33,9 @@
 
 #define NANOSVG_IMPLEMENTATION
 #define NANOSVG_ALL_COLOR_KEYWORDS
-#include "duilib/third_party/svg/nanosvg.h"
+#include "third-party/svg/nanosvg.h"
 #define NANOSVGRAST_IMPLEMENTATION
-#include "duilib/third_party/svg/nanosvgrast.h"
+#include "third-party/svg/nanosvgrast.h"
 
 #pragma warning (pop)
 #if defined(__GNUC__) && !defined(__clang__)
@@ -44,11 +44,11 @@
 
 #pragma warning (push)
 #pragma warning (disable: 4996)
-    #include "duilib/third_party/cximage/ximage.h"
+    #include "third-party/cximage/ximage.h"
 #pragma warning (pop)
 
-#include "duilib/third_party/libwebp/src/webp/decode.h"
-#include "duilib/third_party/libwebp/src/webp/demux.h"
+#include "third-party/libwebp/src/webp/decode.h"
+#include "third-party/libwebp/src/webp/demux.h"
 
 #include "duilib/RenderSkia/SkiaHeaderBegin.h"
 #include "modules/svg/include/SkSVGDOM.h"

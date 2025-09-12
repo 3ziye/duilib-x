@@ -53,7 +53,7 @@ endif()
 
 if(DUILIB_WEBVIEW2_EXE)    
     #WEBVIEW2库所在路径（.lib对应的路径）
-    link_directories("${DUILIB_ROOT}/duilib/third_party/Microsoft.Web.WebView2/build/native/${DUILIB_SYSTEM_PROCESSOR}") 
+    link_directories("${DUILIB_ROOT}/third-party/Microsoft.Web.WebView2/build/native/${DUILIB_SYSTEM_PROCESSOR}") 
 endif()
 
 # Remove *.mm
@@ -79,24 +79,24 @@ elseif(DUILIB_WINRES_FILE_NAME)
     target_sources(${PROJECT_NAME} PRIVATE "${DUILIB_WINRES_FILE_NAME}")
 endif()
 
-if(MSVC)
-    # 配置manifest文件
-    target_sources(${PROJECT_NAME} PRIVATE 
-        ${DUILIB_WIN_MANIFEST}
-    )
+# if(MSVC)
+#     # 配置manifest文件
+#     target_sources(${PROJECT_NAME} PRIVATE 
+#         ${DUILIB_WIN_MANIFEST}
+#     )
     
-    # 使用MSVC编译时，需要设置子系统属性
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-        LINK_FLAGS "/SUBSYSTEM:WINDOWS /ENTRY:wWinMainCRTStartup"
-    )
+#     # 使用MSVC编译时，需要设置子系统属性
+#     set_target_properties(${PROJECT_NAME} PROPERTIES
+#         LINK_FLAGS "/SUBSYSTEM:WINDOWS /ENTRY:wWinMainCRTStartup"
+#     )
     
-    if(DUILIB_ENABLE_CEF)
-        #设置libcef.dll延迟加载
-        target_link_options(${PROJECT_NAME} PRIVATE
-            "/DELAYLOAD:libcef.dll"  # 指定延迟加载的DLL文件名
-        )
-    endif()
-endif()
+#     if(DUILIB_ENABLE_CEF)
+#         #设置libcef.dll延迟加载
+#         target_link_options(${PROJECT_NAME} PRIVATE
+#             "/DELAYLOAD:libcef.dll"  # 指定延迟加载的DLL文件名
+#         )
+#     endif()
+# endif()
 
 # Windows平台所依赖的库
 set(DUILIB_WINDOWS_LIBS Comctl32 Imm32 Opengl32 User32 shlwapi)
@@ -118,7 +118,7 @@ if(DUILIB_WEBVIEW2_EXE)
     # 复制WebView2Loader.dll到bin目录
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD  # 在目标构建后执行
                        COMMAND ${CMAKE_COMMAND} -E copy
-                               "${DUILIB_ROOT}/duilib/third_party/Microsoft.Web.WebView2/build/native/${DUILIB_SYSTEM_PROCESSOR}/WebView2Loader.dll"
+                               "${DUILIB_ROOT}/third-party/Microsoft.Web.WebView2/build/native/${DUILIB_SYSTEM_PROCESSOR}/WebView2Loader.dll"
                                "$<TARGET_FILE_DIR:${PROJECT_NAME}>/WebView2Loader.dll"
                        COMMENT "Copying WebView2Loader.dll to runtime directory"
                       )

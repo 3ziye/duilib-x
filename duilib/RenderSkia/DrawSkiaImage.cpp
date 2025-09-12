@@ -5,7 +5,7 @@
 #pragma warning (push)
 #pragma warning (disable: 4505)
     #define STBIR_DEFAULT_FILTER_UPSAMPLE STBIR_FILTER_TRIANGLE
-    #include "duilib/third_party/stb_image/stb_image_resize2.h"
+    #include "third-party/stb_image/stb_image_resize2.h"
 #pragma warning (pop)
 
 #include "SkiaHeaderBegin.h"

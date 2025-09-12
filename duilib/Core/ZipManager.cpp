@@ -5,8 +5,8 @@
 #include "duilib/Utils/StringConvert.h"
 #include "duilib/Utils/FilePathUtil.h"
 
-#include "duilib/third_party/zlib/zlib.h"
-#include "duilib/third_party/zlib/contrib/minizip/unzip.h"
+#include "third-party/zlib/zlib.h"
+#include "third-party/zlib/contrib/minizip/unzip.h"
 
 namespace ui 
 {

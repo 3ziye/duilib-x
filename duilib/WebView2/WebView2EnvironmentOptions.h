@@ -6,7 +6,7 @@
 #if defined (DUILIB_BUILD_FOR_WIN) && defined (DUILIB_BUILD_FOR_WEBVIEW2)
 
 #include <combaseapi.h>
-#include "duilib/third_party/Microsoft.Web.WebView2/build/native/include/WebView2.h"
+#include "third-party/Microsoft.Web.WebView2/build/native/include/WebView2.h"
 
 #include <vector>
 
