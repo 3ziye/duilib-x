@@ -22,3 +22,9 @@ mkdir build
 cd build 
 cmake ..
 ```
+
+# 致谢
+我们借鉴了以下项目的设计理念，并复用了其部分代码：
+1. https://github.com/duilib/duilib
+2. https://github.com/netease-im/NIM_Duilib_Framework
+3. https://github.com/rhett-lee/nim_duilib
